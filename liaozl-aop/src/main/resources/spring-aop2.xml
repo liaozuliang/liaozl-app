@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+    <bean id="bankServiceAspect" class="com.liaozl.aop.aspect.BankServiceAspect"/>
+
+    <aop:config>
+        <aop:aspect ref="bankServiceAspect">
+            <aop:pointcut expression="execution(* com.liaozl.aop.service.BankService.*(..))" id="pointcut"/>
+            <aop:before method="before" pointcut-ref="pointcut"/>
+            <aop:after method="after" pointcut-ref="pointcut"/>
+            <aop:after-returning method="afterReturning" returning="value" pointcut-ref="pointcut"/>
+            <aop:after-throwing method="afterThrowing" throwing="ex" pointcut-ref="pointcut"/>
+            <aop:around method="around" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

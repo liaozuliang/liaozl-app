@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liaozl.dao.mapper.UserMapper" >
+    
+    <select id="getUserByIdAndName" resultType="com.liaozl.dao.module.User">
+        select
+          *
+        from t_user
+        where 1=1
+          and id = #{id, jdbcType=INTEGER}
+          and name = #{name, jdbcType=VARCHAR}
+    </select>
+
+</mapper>

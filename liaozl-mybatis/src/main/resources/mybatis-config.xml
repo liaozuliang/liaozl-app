@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25000" />
+	</settings>
+	<plugins>
+		<!--不能配置2个类型一样的拦截器，否则会报错-->
+
+		<!-- 自动切换读/写库 -->
+		 <plugin interceptor="com.liaozl.dao.base.MultiDataSourceInterceptor">
+            <property name="commonDatabase" value="liaozl_common"/>
+            <property name="commonTables" value="t_user,t_test5"/>
+        </plugin>
+
+		<!-- 分页 -->
+		<plugin interceptor="com.liaozl.dao.base.PaginationInterceptor">
+			<property name="dialectClass" value="com.liaozl.dao.base.dialect.MySqlDialect"/>
+		</plugin>
+	</plugins>
+	
+</configuration>

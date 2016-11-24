@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/task
+		   http://www.springframework.org/schema/task/spring-task-3.1.xsd
+           http://www.springframework.org/schema/rabbit
+           http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+
+    <!-- 读取资源文件 -->
+    <bean id="propertyConfigurerForRabbitmq"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:rabbitmq.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="fastJsonMessageConverter" class="com.liaozl.rabbitmq.converter.FastJsonMessageConverter" />
+
+    <rabbit:connection-factory id="connectionFactory"
+         host="${rabbit.host.ip}"
+         password="${rabbit.host.password}"
+         username="${rabbit.host.user}"
+         virtual-host="${rabbit.host.virtualhost}"
+         port="${rabbit.host.port}" />
+
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" message-converter="fastJsonMessageConverter" />
+    <rabbit:admin id="amqpAdmin" connection-factory="connectionFactory" />
+
+    <!--单播，发送给绑定的Queue，完全匹配ROUTING_KEY-->
+    <rabbit:direct-exchange name="directExchange" auto-delete="false" durable="true">
+        <rabbit:bindings>
+            <rabbit:binding queue="directQueue1" key="directQueueKey1"/>
+            <rabbit:binding queue="directQueue2" key="directQueueKey2"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <rabbit:queue id="directQueue1" name="test.directQueue1" auto-delete="false" durable="true" />
+    <rabbit:queue id="directQueue2" name="test.directQueue2" auto-delete="false" durable="true" />
+
+
+    <!--广播，发送给所有绑定的Queue，忽略ROUTING_KEY-->
+    <rabbit:fanout-exchange name="fanoutExchange" auto-delete="false" durable="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="fanoutQueue1" />
+            <rabbit:binding queue="fanoutQueue2" />
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+
+    <rabbit:queue id="fanoutQueue1" name="test.fanoutQueue1" auto-delete="false" durable="false" />
+    <rabbit:queue id="fanoutQueue2" name="test.fanoutQueue2" auto-delete="false" durable="false" />
+
+
+    <!--组播，发送给所有绑定的Queue，按ROUTING_KEY规则(*表是匹配一个任意词组，#表示匹配0个或多个词组)-->
+    <rabbit:topic-exchange name="topicExchange" auto-delete="false" durable="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="topicQueue1" pattern="#.QueueKey3"/>
+            <rabbit:binding queue="topicQueue2" pattern="topic.#.Key"/>
+            <rabbit:binding queue="topicQueue3" pattern="topicQueue.#"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <rabbit:queue id="topicQueue1" name="test.topicQueue1" auto-delete="false" durable="false" />
+    <rabbit:queue id="topicQueue2" name="test.topicQueue2" auto-delete="false" durable="false" />
+    <rabbit:queue id="topicQueue3" name="test.topicQueue3" auto-delete="false" durable="false" />
+
+
+    <!--组播，发送给所有绑定的Queue，按ROUTING_KEY规则(*表是匹配一个任意词组，#表示匹配0个或多个词组)-->
+    <rabbit:topic-exchange name="topicExchange2" auto-delete="false" durable="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="topicQueue4" pattern="AAA"/>
+            <rabbit:binding queue="topicQueue5" pattern="*.AAA"/>
+            <rabbit:binding queue="topicQueue6" pattern="AAA.*.AAA"/>
+            <rabbit:binding queue="topicQueue7" pattern="AAA.*"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <rabbit:queue id="topicQueue4" name="test.topicQueue4" auto-delete="false" durable="false" />
+    <rabbit:queue id="topicQueue5" name="test.topicQueue5" auto-delete="false" durable="false" />
+    <rabbit:queue id="topicQueue6" name="test.topicQueue6" auto-delete="false" durable="false" />
+    <rabbit:queue id="topicQueue7" name="test.topicQueue7" auto-delete="false" durable="false" />
+
+
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto"
+            concurrency="${rabbit.listener.concurrency}" prefetch="${rabbit.listener.prefetch}">
+        <rabbit:listener queues="directQueue1" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="directQueue2" ref="rabbitmqMessageListener" />
+
+        <rabbit:listener queues="fanoutQueue1" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="fanoutQueue2" ref="rabbitmqMessageListener" />
+
+        <rabbit:listener queues="topicQueue1" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="topicQueue2" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="topicQueue3" ref="rabbitmqMessageListener" />
+
+        <rabbit:listener queues="topicQueue4" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="topicQueue5" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="topicQueue6" ref="rabbitmqMessageListener" />
+        <rabbit:listener queues="topicQueue7" ref="rabbitmqMessageListener" />
+    </rabbit:listener-container>
+
+    <bean id="rabbitmqMessageListener" class="com.liaozl.rabbitmq.listener.RabbitmqMessageListener"/>
+</beans>
