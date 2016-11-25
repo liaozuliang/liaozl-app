@@ -1,6 +1,7 @@
 package com.liaozl.kafka.producer;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 @Service("kafkaSender")
 public class KafkaSender {
 
-    private static final Logger logger = Logger.getLogger(KafkaSender.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaSender.class);
 
     @Resource
     private KafkaTemplate<Integer, String> kafkaTemplate;

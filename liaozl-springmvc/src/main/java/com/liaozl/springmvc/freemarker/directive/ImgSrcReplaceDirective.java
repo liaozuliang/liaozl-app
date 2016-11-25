@@ -9,7 +9,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Service("imgSrcReplaceDirective")
 public class ImgSrcReplaceDirective implements TemplateDirectiveModel {
 
-	private static final Logger log = Logger.getLogger(ImgSrcReplaceDirective.class);
+	private static final Logger log = LoggerFactory.getLogger(ImgSrcReplaceDirective.class);
 	
 	private static final String IMG_SIZE = "size";
 	private static final String IMG_URL = "oldUrl";

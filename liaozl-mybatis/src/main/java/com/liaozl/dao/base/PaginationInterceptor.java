@@ -10,7 +10,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
@@ -20,7 +21,7 @@ import java.util.Properties;
 @Intercepts({@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
 public class PaginationInterceptor extends AbstractInterceptor {
 
-    private final static Logger logger = Logger.getLogger(PaginationInterceptor.class);
+    private final static Logger logger = LoggerFactory.getLogger(PaginationInterceptor.class);
 
     private static int MAPPED_STATEMENT_INDEX = 0;
     private static int PARAMETER_INDEX = 1;

@@ -1,9 +1,10 @@
 package com.liaozl.redis.redisson;
 
-import org.apache.log4j.Logger;
 import org.redisson.Config;
 import org.redisson.Redisson;
 import org.redisson.core.RLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedissonLock {
 
-    private static final Logger log = Logger.getLogger(RedissonLock.class);
+    private static final Logger log = LoggerFactory.getLogger(RedissonLock.class);
 
     private static String ip = "192.168.18.13";
     private static int port = 8379;

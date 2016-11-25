@@ -2,7 +2,8 @@ package com.liaozl.redis.service.impl;
 
 import com.liaozl.redis.model.enums.CacheDataTypeEnum;
 import com.liaozl.redis.service.CacheService;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Service("redisCacheService")
 public class RedisCacheService implements CacheService {
 
-    private static final Logger log = Logger.getLogger(RedisCacheService.class);
+    private static final Logger log = LoggerFactory.getLogger(RedisCacheService.class);
 
     @Resource(name = "queryRedisTemplate")
     private RedisTemplate<String, Object> queryRedisTemplate;

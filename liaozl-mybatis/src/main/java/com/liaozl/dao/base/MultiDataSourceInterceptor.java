@@ -1,7 +1,6 @@
 package com.liaozl.dao.base;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.ibatis.executor.statement.PreparedStatementHandler;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -9,7 +8,8 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.Properties;
 @Intercepts(@Signature(method = "prepare", type = StatementHandler.class, args = {Connection.class}))
 public class MultiDataSourceInterceptor extends AbstractInterceptor {
 
-    private final static Logger logger = Logger.getLogger(MultiDataSourceInterceptor.class);
+    private final static Logger logger = LoggerFactory.getLogger(MultiDataSourceInterceptor.class);
 
     private String commonDatabase;
     private static final List<String> commonTables = new ArrayList<String>();

@@ -1,9 +1,10 @@
 package com.liaozl.elasticsearch.es;
 
-import org.apache.log4j.Logger;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 
@@ -13,7 +14,7 @@ import java.net.InetAddress;
  */
 public class EsClientFactory {
 
-    private static final Logger logger = Logger.getLogger(EsClientFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(EsClientFactory.class);
 
     private static final String ES_HOST = "192.168.10.32";
     private static final int ES_PORT = 9300;

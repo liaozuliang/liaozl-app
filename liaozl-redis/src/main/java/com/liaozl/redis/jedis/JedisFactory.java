@@ -1,7 +1,8 @@
 package com.liaozl.redis.jedis;
 
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 public class JedisFactory {
 
-    private static final Logger log = Logger.getLogger(JedisFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(JedisFactory.class);
 
     private static final int TIME_OUT = 30 * 1000;// 30秒
     private static final int MAX_COUNT = 5;

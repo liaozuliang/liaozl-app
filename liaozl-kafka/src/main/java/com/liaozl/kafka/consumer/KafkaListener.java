@@ -1,7 +1,8 @@
 package com.liaozl.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.listener.MessageListener;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.kafka.listener.MessageListener;
  */
 public class KafkaListener implements MessageListener<Integer, String> {
 
-    private static final Logger logger = Logger.getLogger(KafkaListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaListener.class);
 
     @Override
     public void onMessage(ConsumerRecord<Integer, String> record) {

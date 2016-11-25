@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.liaozl.elasticsearch.es.EsClientFactory;
 import com.liaozl.elasticsearch.service.EsService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -14,6 +13,8 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -30,7 +31,7 @@ import java.util.Map;
 @Service("esService")
 public class EsServiceImpl implements EsService {
 
-    private static final Logger logger = Logger.getLogger(EsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(EsServiceImpl.class);
 
     private Client client;
 
