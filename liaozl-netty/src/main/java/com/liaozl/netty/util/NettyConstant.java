@@ -6,5 +6,6 @@ package com.liaozl.netty.util;
  */
 public class NettyConstant {
 
+    public static final int PORT = 8080;
     public static final int BUFFER_SIZE = 1024;
 }
