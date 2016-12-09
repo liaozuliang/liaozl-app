@@ -20,7 +20,7 @@ import java.util.Date;
 
 
 /**
- * 支持TCP粘包
+ * 换行分割符，支持TCP粘包
  *
  * @author liaozuliang
  * @date 2016-12-08

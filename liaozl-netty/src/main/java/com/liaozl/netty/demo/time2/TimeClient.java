@@ -15,7 +15,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 /**
- * 不支持TCP粘包
+ * 换行分割符，不支持TCP粘包
  *
  * @author liaozuliang
  * @date 2016-12-08
