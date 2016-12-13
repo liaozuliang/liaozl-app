@@ -1,0 +1,34 @@
+package com.liaozl.netty.demo.protocol.http.httpxml.pojo;
+
+import io.netty.handler.codec.http.FullHttpResponse;
+
+/**
+ * @author liaozuliang
+ * @date 2016-12-13
+ */
+public class HttpXmlResponse {
+
+    private FullHttpResponse response;
+    private Object result;
+
+    public HttpXmlResponse(FullHttpResponse response, Object result) {
+        this.response = response;
+        this.result = result;
+    }
+
+    public FullHttpResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(FullHttpResponse response) {
+        this.response = response;
+    }
+
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
+    }
+}
