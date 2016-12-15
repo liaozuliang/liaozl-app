@@ -6,8 +6,9 @@ package com.liaozl.netty.util;
  */
 public class NettyConstant {
 
-    public static final String IP = "localhost";
+    public static final String IP = "127.0.0.1";
     public static final int PORT = 8080;
+    public static final int CLIENT_PORT = 12088;
     public static final int BUFFER_SIZE = 1024;
 
     public static final String UTF8 = "UTF-8";
