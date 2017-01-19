@@ -20,6 +20,21 @@ public class RabbitmqMsgProducterTest {
     private RabbitmqMsgProducter rabbitmqMsgProducter;
 
     @Test
+    public void testNoAutoAckQueue() {
+        try {
+            RabbitmqMessage rm = new RabbitmqMessage();
+            rm.setExchange("directExchange");
+            rm.setRoutingKey("noAutoAckQueueKey");
+            rm.setMsgBody("this is a directExchange rabbitmq msg, to noAutoAckQueue with DeadlockLoserDataAccessException");
+            rabbitmqMsgProducter.sendMsg(rm);
+
+            Thread.sleep(5 * 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testDirectExchange() {
         try {
             RabbitmqMessage rm = new RabbitmqMessage();

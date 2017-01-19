@@ -50,6 +50,7 @@
         <rabbit:bindings>
             <rabbit:binding queue="directQueue1" key="directQueueKey1"/>
             <rabbit:binding queue="directQueue2" key="directQueueKey2"/>
+            <rabbit:binding queue="noAutoAckQueue" key="noAutoAckQueueKey" />
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
@@ -118,4 +119,12 @@
     </rabbit:listener-container>
 
     <bean id="rabbitmqMessageListener" class="com.liaozl.rabbitmq.listener.RabbitmqMessageListener"/>
+
+    <rabbit:queue id="noAutoAckQueue" name="test.noAutoAckQueue" auto-delete="false" durable="false" />
+
+    <!--手动确认已消费消息-->
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual"
+            concurrency="${rabbit.listener.concurrency}" prefetch="${rabbit.listener.prefetch}">
+        <rabbit:listener queues="noAutoAckQueue" ref="noAutoAckListener" />
+    </rabbit:listener-container>
 </beans>
