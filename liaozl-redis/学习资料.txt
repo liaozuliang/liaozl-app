@@ -1,0 +1,5 @@
+Redis中文网：
+http://www.redis.net.cn/
+
+Redis Desktop Manager（客户端）：
+https://redisdesktop.com/download

@@ -44,4 +44,26 @@
         </property>
     </bean>
 
+    <!--订阅redis消息-->
+    <bean id="redisMessageListener" class="com.liaozl.redis.pubsub.RedisMessageListener" />
+    <bean id="redisMessageListenerContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+        <property name="connectionFactory" ref="queryJedisConnectionFactory"/>
+        <property name="messageListeners">
+            <map>
+                <entry key-ref="redisMessageListener">
+                    <list>
+                        <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                            <constructor-arg value="myReidsTopic" />
+                        </bean>
+                        <bean class="org.springframework.data.redis.listener.PatternTopic">
+                            <constructor-arg value="test*" />
+                        </bean>
+                        <bean class="org.springframework.data.redis.listener.PatternTopic">
+                            <constructor-arg value="*Channel" />
+                        </bean>
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>

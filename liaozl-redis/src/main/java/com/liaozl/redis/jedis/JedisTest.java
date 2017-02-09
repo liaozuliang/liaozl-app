@@ -1,13 +1,15 @@
 package com.liaozl.redis.jedis;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JedisTest {
 
-	private static final String IP = "192.168.18.13";
+	private static final String IP = "192.168.18.66";
 	private static final int READ_PORT = 8379;
 	private static final int WRITE_PORT = 8379;
 
@@ -71,6 +73,25 @@ public class JedisTest {
 		long min = taketime / 1000 / 60;
 		long ms = taketime / MAX_ROW;
 		System.out.println("testQuery dataCount:" + MAX_ROW + ", takeTime:" + taketime + "ms,  " + min + "分钟，" + ms + " 毫秒/条");
+	}
+
+	public static void testTransaction() {
+		Jedis jedis = JedisFactory.getInstance().getJedis("192.168.18.66", 8379);
+		long start = System.currentTimeMillis();
+
+		Transaction tx = jedis.multi();
+
+		for (int i = 0; i < 10; i++) {
+			tx.set("testTransaction" + i, "t" + i);
+		}
+
+		List<Object> results = tx.exec();
+
+		long end = System.currentTimeMillis();
+
+		System.out.println("Transaction SET: " + ((end - start) / 1000.0) + " seconds");
+
+		jedis.disconnect();
 	}
 
 	public static void main(String[] args) {
