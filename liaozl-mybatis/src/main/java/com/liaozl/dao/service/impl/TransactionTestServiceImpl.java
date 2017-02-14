@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.TransactionSynchronizationAdapter;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.annotation.Resource;
 
@@ -64,6 +66,17 @@ public class TransactionTestServiceImpl implements TransactionTestService {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 事务回滚
             }
 
+            try {
+                // 事务提交后操作;
+                TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
+                    @Override
+                    public void afterCommit() {
+                        System.out.println("事务提交后做了一个操作");
+                    }
+                });
+            } catch (Exception e) {
+                logger.error("事务提交后操作出错：", e);
+            }
         } catch (Exception e) {
             logger.error("testTransaction error: ", e);
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly(); // 事务回滚
