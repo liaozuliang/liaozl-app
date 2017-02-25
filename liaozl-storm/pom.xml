@@ -11,5 +11,11 @@
 
     <artifactId>liaozl-storm</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
 </project>
