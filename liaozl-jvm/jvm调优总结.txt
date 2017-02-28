@@ -1,0 +1,53 @@
+-Xmx512M 最大堆内存（新生代+老年代）
+-Xms64M 最小堆内存
+
+-Xmn32M 新生代大小 （效果等同于设置-XX:NewSize和-XX:MaxNewSize）
+-XX:NewSize=32M 新生代初始值
+-XX:MaxNewSize=64M 新生代最大值
+
+-XX:PermSize=32M 持久代初始值
+-XX:MaxPermSize=64M 持久代最大值
+
+-Xss2M 线程栈大小
+
+-XX:SurvivorRatio=8 新生代eden与s0空间比例(-XX:SurvivorRatio=eden/s0=eden/s1)
+
+-XX:NewRatio=2 新生代和老年代比例（-XX:NewRatio=老年代/新生代）
+
+==========垃圾回收器算法：
+1、计数器
+2、标记-清除
+3、复制（新生代采用的算法）
+4、标记-压缩（持久代采用的算法）
+
+==========垃圾回收器类型：
+1、线程数：串行、并行
+2、工作模式：独占式、并发式
+3、碎片处理方式：压缩式、非压缩式
+4、工作内存区间：新生代、老年代
+
+
+==========linux系统性能查询命令：
+top
+sar
+vmstat
+iostat
+pidstat
+
+==========JDK命令行工具
+jps
+jstat
+jinfo
+jmap
+jhat
+jstack
+jstatd
+hprod
+
+JConsole
+Visual VM
+JProfile
+==========
+
+==========
+==========

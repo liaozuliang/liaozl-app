@@ -46,6 +46,7 @@
         <module>liaozl-netty</module>
         <module>liaozl-sharding-jdbc</module>
         <module>liaozl-logback</module>
+        <module>liaozl-jvm</module>
     </modules>
 
     <!-- jar版本统一管理，解决版本冲 -->
