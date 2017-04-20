@@ -18,6 +18,8 @@ public class LogTest {
         logger.trace("输出trace级别的日志.....");
         logger.warn("{}输出{}级别的{},{}", new String[]{"我", "warn", "日志", "哈哈"});
 
+
+        logger.info("输出info级别的日志..{}.." + "111{}.", "abccc", "111abc222");
         //throw new IllegalArgumentException("哈哈");
     }
 
