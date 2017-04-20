@@ -9,6 +9,7 @@ object ForTest {
 
   def main(args: Array[String]): Unit = {
     testFor();
+    testFor2();
   }
 
   def testFor(): Unit = {
@@ -39,4 +40,12 @@ object ForTest {
       println("test5: x=" + x)
     }
   }
+
+  def testFor2(): Unit = {
+    var list = List(1, 2, 3, "H", "f", 4, 6, 7, 9, 'a');
+    for (n <- list) {
+      print(n + "-");
+    }
+  }
+
 }
