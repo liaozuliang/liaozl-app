@@ -54,8 +54,8 @@
     <properties>
         <file.encoding>UTF-8</file.encoding>
         <servlet.version>2.5</servlet.version>
-        <spring.version>4.0.6.RELEASE</spring.version>
-        <junit.version>4.11</junit.version>
+        <spring.version>4.3.5.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -63,6 +63,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
