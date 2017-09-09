@@ -1,6 +1,7 @@
 package com.liaozl.mongo.model;
 
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
  * @author liaozuliang
  * @date 2017-09-09
  */
+@Document(collection = "t_user")
 public class User {
 
     @Indexed
