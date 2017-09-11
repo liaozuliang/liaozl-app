@@ -3,7 +3,7 @@ package com.liaozl.mongo.enums;
 
 public enum CollectionEnum {
 
-    USER("t_user", "用户信息");
+    USER(TableName.T_USER, "用户信息");
 
     private String collectionName;
 

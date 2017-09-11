@@ -42,6 +42,15 @@ public class UserMongoTest {
 
             user = userMongo.selectByUserId(userId);
             System.out.println("新增后：" + user);
+
+            user.setName("测试一下修改2222");
+            user.setSex(2);
+            user.setAddress("hahahah");
+            user.setBirthday(new Date());
+            userMongo.update(user);
+
+            user = userMongo.selectByUserId(userId);
+            System.out.println("修改后：" + user);
         } else {
             user.setName("测试一下修改2222");
             user.setSex(2);
